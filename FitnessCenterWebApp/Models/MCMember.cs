@@ -1,8 +1,8 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenter.Models
+namespace FitnessCenterWebApp.Models
 {
     public class MCMember : Member
     {
@@ -17,3 +17,4 @@ namespace FitnessCenter.Models
         }
     }
 }
+*/

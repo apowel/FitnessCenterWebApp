@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenter.Models
+namespace FitnessCenterWebApp.Models
 {
     public enum Membership
     {

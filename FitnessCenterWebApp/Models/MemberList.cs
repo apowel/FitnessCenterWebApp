@@ -1,15 +1,12 @@
-﻿using FitnessCenter.Controller;
-using FitnessCenter.Views;
+﻿using FitnessCenterWepApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace FitnessCenter.Models
+namespace FitnessCenterWebApp.Models
 {
-    [XmlInclude(typeof(SCMember))]
-    [XmlInclude(typeof(MCMember))]
     [XmlInclude(typeof(Member))]
     [XmlInclude(typeof(List<Member>))]
     [Serializable()]
@@ -17,10 +14,10 @@ namespace FitnessCenter.Models
     {
         public static List<Member> memberList = new List<Member>()
         {
-            new SCMember() { Id = 1234, Name = "Andrew", Price = 10, Membership = Membership.GrandRapids, Begin = new DateTime(2020, 01, 01) },
-            new SCMember() { Id = 7138, Name = "Austin", Price = 10, Membership = Membership.Djibouti, Begin = new DateTime(2019, 04, 20) },
-            new MCMember() { Id = 3825, Name = "Tommy", Price = 20, Membership = Membership.MultiClub, Begin = new DateTime(2015, 08, 28) },
-            new SCMember() { Id = 2678, Name = "Naruto", Price = 10, Membership = Membership.Kyoto, Begin = new DateTime(2017, 03, 17) }
+            new Member() { Id = 1234, Name = "Andrew", Price = 10, Membership = Membership.GrandRapids, Begin = new DateTime(2020, 01, 01) },
+            new Member() { Id = 7138, Name = "Austin", Price = 10, Membership = Membership.Djibouti, Begin = new DateTime(2019, 04, 20) },
+            new Member() { Id = 3825, Name = "Tommy", Price = 20, Membership = Membership.MultiClub, Begin = new DateTime(2015, 08, 28) },
+            new Member() { Id = 2678, Name = "Naruto", Price = 10, Membership = Membership.Kyoto, Begin = new DateTime(2017, 03, 17) }
         };
         public static void Signup(Member member)
         {
@@ -58,11 +55,11 @@ namespace FitnessCenter.Models
                 Console.WriteLine("That is not a valid Id number.");
                 try
                 {
-                    MemberListView.Display(MemberList.GetMembersOf(HomeController.currentClub.Membership));
+                    //MemberListView.Display(MemberList.GetMembersOf(HomeController.currentClub.Membership));
                 }
                 catch (Exception)
                 {
-                    MemberListView.Display(MemberList.memberList);
+                    //MemberListView.Display(MemberList.memberList);
                 }
             }
             HomeController.currentMember =  memberList.FirstOrDefault(e => e.Id == id);

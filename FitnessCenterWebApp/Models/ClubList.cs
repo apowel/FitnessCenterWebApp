@@ -1,11 +1,10 @@
-﻿using FitnessCenter.Controller;
-using FitnessCenter.Views;
+﻿using FitnessCenterWepApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FitnessCenter.Models
+namespace FitnessCenterWebApp.Models
 {
     public class ClubList
     {
@@ -24,7 +23,7 @@ namespace FitnessCenter.Models
             {
                 Console.Clear();
                 Console.WriteLine("That was not a Valid input");
-                ClubListView.Display();
+                //ClubListView.Display();
             }
             HomeController.currentClub = clubList.FirstOrDefault(e => e.Id == decision);
         }

@@ -1,9 +1,9 @@
-﻿using FitnessCenter.Controller;
+﻿/*using FitnessCenterWepApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenter.Models
+namespace FitnessCenterWebApp.Models
 {
     public class SCMember : Member
     {
@@ -20,3 +20,4 @@ namespace FitnessCenter.Models
         }
     }
 }
+*/

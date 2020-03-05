@@ -1,24 +1,31 @@
-﻿using FitnessCenter.Controller;
-using FitnessCenter.Views;
+﻿using FitnessCenterWepApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace FitnessCenter.Models
+namespace FitnessCenterWebApp.Models
 {
-    [XmlInclude(typeof(SCMember))]
-    [XmlInclude(typeof(MCMember))]
+    [XmlInclude(typeof(Member))]
     [Serializable()]
-    public abstract class Member
+    public class Member
     {
         public int Id { get; set; }
+        public bool Multiclub { get; set; }
         public string Name { get; set; }
         public Membership Membership { get; set; }
         public int Price { get; set; }
         public int Balance { get; set; }
         public DateTime Begin { get; set; }
-        public abstract void CheckIn(Club club);
+        public virtual void CheckIn(Club club) { }
+
+        public Member()
+        {
+            if (this.Membership == Membership.MultiClub)
+            {
+                this.Multiclub = true;
+            }
+        }
 
         public static void MemberMenu(Member member)
         {
@@ -29,7 +36,7 @@ namespace FitnessCenter.Models
                 member.Begin = DateTime.Today;
                 Console.WriteLine($"{member.Name} has paid their bill! Press any key to continue");
                 Console.ReadKey();
-                MemberDetailsView.Display();
+                //MemberDetailsView.Display();
                 MemberMenu(member);
                 return;
             }
@@ -47,7 +54,7 @@ namespace FitnessCenter.Models
                 }
                 else
                 {
-                    MemberDetailsView.Display();
+                    //MemberDetailsView.Display();
                     MemberMenu(member);
                     return;
                 }
@@ -69,7 +76,7 @@ namespace FitnessCenter.Models
             }
             HomeController.currentMember.Name = name;
         }
-        public static void GetNewMemberType(Club club)
+/*        public static void GetNewMemberType(Club club)
         {
             string memberType = Console.ReadLine();
 
@@ -87,8 +94,8 @@ namespace FitnessCenter.Models
             {
                 Console.WriteLine("That is not a valid answer, please try again.");
                 Console.ReadKey();
-                AddMemberView.Display(club);
+                //AddMemberView.Display(club);
             }
-        }
+        }*/
     }
 }
