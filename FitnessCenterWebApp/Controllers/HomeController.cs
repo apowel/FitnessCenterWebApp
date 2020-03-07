@@ -51,7 +51,7 @@ namespace FitnessCenterWepApp.Controllers
             Random id = new Random();
             member.Id = id.Next(1000, 9999);
             MemberList.memberList.Add(member);
-            return RedirectToAction("details", new { Id = member.Id });
+            return RedirectToAction("memberdetails", new { Id = member.Id });
         }
         public ActionResult Delete(int? id)
         {
