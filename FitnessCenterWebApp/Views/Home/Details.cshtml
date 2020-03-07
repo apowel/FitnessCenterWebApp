@@ -14,15 +14,16 @@
                 <img class="card-img-top" src="~/images/noimage.jpg"
                      asp-append-version="true" />
 
-                <h4>Employee ID : @Model.Id</h4>
-                <h4>Employee Department : @Model.Membership</h4>
+                <h4>Member ID : @Model.Id</h4>
+                <h4>Membership Type : @Model.Membership</h4>
+                <h4>Oustanding Balance : @Model.Balance</h4>
 
             </div>
             <div class="card-footer text-center">
                 <a asp-controller="home" asp-action="index"
                    class="btn btn-primary">Back</a>
-                <a asp-controller="home" asp-action="edit" asp-route-id="@Model.Id"
-                   class="btn btn-primary">Edit</a>
+                <a asp-controller="home" asp-action="paybill" asp-route-id="@Model.Id"
+                   class="btn btn-primary">Settle Balance</a>
                 <a asp-controller="home" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger">Delete </a>
             </div>

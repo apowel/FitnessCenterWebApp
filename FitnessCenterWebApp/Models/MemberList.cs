@@ -34,12 +34,11 @@ namespace FitnessCenterWebApp.Models
         {
             return memberList.FirstOrDefault(e => e.Name == name);
         }
-        public static int GetBalance()
+        public static void GetBalance()
         {
             int monthResult = (DateTime.Today.Month - HomeController.currentMember.Begin.Month) 
                 + 12 * (DateTime.Today.Year - HomeController.currentMember.Begin.Year);
-            int balance = monthResult * HomeController.currentMember.Price;
-            return balance;
+            HomeController.currentMember.Balance = monthResult * HomeController.currentMember.Price;
         }
         public static void GetMember()
         {

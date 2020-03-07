@@ -27,9 +27,16 @@ namespace FitnessCenterWepApp.Controllers
             ViewBag.PageTitle = "Member List";
             return View(model);
         }
+        public IActionResult ClubList()
+        {
+            var model = FitnessCenterWebApp.Models.ClubList.clubList;
+            ViewBag.PageTitle = "Club List";
+            return View(model);
+        }
         public ViewResult Details(int? id)
         {
             HomeController.currentMember = MemberList.memberList.FirstOrDefault(e => e.Id == id);
+            MemberList.GetBalance();
             ViewBag.PageTitle = "Employee Details";
             return View(HomeController.currentMember);
         }
@@ -61,6 +68,13 @@ namespace FitnessCenterWepApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public ActionResult PayBill(int ? id)
+        {
+            Member current = MemberList.memberList.Where(e => e.Id == id).First();
+            current.Balance = 0;
+            current.Begin = DateTime.Today;
+            return RedirectToAction("details", new { Id = current.Id });
         }
     }
 }
