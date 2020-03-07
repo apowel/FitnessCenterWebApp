@@ -1,0 +1,21 @@
+﻿@model IEnumerable<FitnessCenterWebApp.Models.Club>
+
+@{
+    ViewBag.Title = "Club List";
+}
+<div class="card-deck">
+    @foreach (var club in Model)
+    {
+        <div class="card m-3">
+            <div class="card-header">
+                <h3>@club.Name</h3>
+            </div>
+            <img class="card-img-top" src="~/images/@{@club.Name}.jpg"
+                 asp-append-version="true" />
+            <div class="card-footer text-center">
+                <a asp-controller="home" asp-action="club" asp-route-id="@club.Name"
+                   class="btn btn-primary m-1">Select</a>
+            </div>
+        </div>
+    }
+</div>
