@@ -20,12 +20,24 @@ namespace FitnessCenterWepApp.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
-            var model = MemberList.memberList;
-            ViewBag.PageTitle = "Member List";
-            return View(model);
+            currentClub = null;
+            return View();
+        }
+        public IActionResult MemberList()
+        {
+            var model = FitnessCenterWebApp.Models.MemberList.memberList;
+            if (currentClub == null)
+            {
+                ViewBag.PageTitle = "Member List";
+                return View(model);
+            }
+            else
+            {
+                List<Member> thisClub = FitnessCenterWebApp.Models.MemberList.GetMembersOf(currentClub.Membership);
+                return View(thisClub);
+            }
         }
         public IActionResult ClubList()
         {
@@ -33,10 +45,15 @@ namespace FitnessCenterWepApp.Controllers
             ViewBag.PageTitle = "Club List";
             return View(model);
         }
+        public ViewResult Club(int ? id)
+        {
+            HomeController.currentClub = FitnessCenterWebApp.Models.ClubList.clubList.FirstOrDefault(e => e.Id == id);
+            return View(HomeController.currentClub);
+        }
         public ViewResult Details(int? id)
         {
-            HomeController.currentMember = MemberList.memberList.FirstOrDefault(e => e.Id == id);
-            MemberList.GetBalance();
+            HomeController.currentMember = FitnessCenterWebApp.Models.MemberList.memberList.FirstOrDefault(e => e.Id == id);
+            FitnessCenterWebApp.Models.MemberList.GetBalance();
             ViewBag.PageTitle = "Employee Details";
             return View(HomeController.currentMember);
         }
@@ -50,14 +67,14 @@ namespace FitnessCenterWepApp.Controllers
         {
             Random id = new Random();
             member.Id = id.Next(1000, 9999);
-            MemberList.memberList.Add(member);
-            return RedirectToAction("memberdetails", new { Id = member.Id });
+            FitnessCenterWebApp.Models.MemberList.memberList.Add(member);
+            return RedirectToAction("details", new { Id = member.Id });
         }
         public ActionResult Delete(int? id)
         {
-            Member current = MemberList.memberList.Where(e => e.Id == id).First();
-            MemberList.memberList.Remove(current);
-            return RedirectToAction("Index");
+            Member current = FitnessCenterWebApp.Models.MemberList.memberList.Where(e => e.Id == id).First();
+            FitnessCenterWebApp.Models.MemberList.memberList.Remove(current);
+            return RedirectToAction("memberlist");
         }
         public IActionResult Privacy()
         {
@@ -71,7 +88,7 @@ namespace FitnessCenterWepApp.Controllers
         }
         public ActionResult PayBill(int ? id)
         {
-            Member current = MemberList.memberList.Where(e => e.Id == id).First();
+            Member current = FitnessCenterWebApp.Models.MemberList.memberList.Where(e => e.Id == id).First();
             current.Balance = 0;
             current.Begin = DateTime.Today;
             return RedirectToAction("details", new { Id = current.Id });
