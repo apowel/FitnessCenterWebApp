@@ -10,6 +10,7 @@ using FitnessCenterWebApp.Models;
 
 namespace FitnessCenterWepApp.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -45,9 +46,10 @@ namespace FitnessCenterWepApp.Controllers
             ViewBag.PageTitle = "Club List";
             return View(model);
         }
-        public ViewResult Club(int ? id)
+        public ViewResult Club(Membership membership)
         {
-            HomeController.currentClub = FitnessCenterWebApp.Models.ClubList.clubList.FirstOrDefault(e => e.Id == id);
+            HomeController.currentClub = FitnessCenterWebApp.Models.ClubList.clubList.FirstOrDefault(e => e.Membership == membership);
+            currentClub.members = FitnessCenterWebApp.Models.MemberList.GetMembersOf(membership);
             return View(HomeController.currentClub);
         }
         public ViewResult Details(int? id)
@@ -63,12 +65,38 @@ namespace FitnessCenterWepApp.Controllers
             return View();
         }
         [HttpPost]
-        public RedirectToActionResult Create(Member member)
+        public IActionResult Create(Member member)
         {
+            if (ModelState.IsValid)
+            {
             Random id = new Random();
             member.Id = id.Next(1000, 9999);
             FitnessCenterWebApp.Models.MemberList.memberList.Add(member);
             return RedirectToAction("details", new { Id = member.Id });
+            }
+            return View();
+        }
+        [HttpGet]
+        public ViewResult CheckIn()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CheckIn(Member member)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("checkedin", 
+                    FitnessCenterWebApp.Models.MemberList.memberList
+                    .FirstOrDefault(e => e.Name == member.Name));
+            }
+            return View();
+        }
+        public ViewResult CheckedIn(int ? id)
+        {
+            currentMember = FitnessCenterWebApp.Models.MemberList.memberList.FirstOrDefault(e => e.Id == id);
+            currentMember.CheckIn(currentClub);
+            return View(currentMember);
         }
         public ActionResult Delete(int? id)
         {
@@ -93,5 +121,6 @@ namespace FitnessCenterWepApp.Controllers
             current.Begin = DateTime.Today;
             return RedirectToAction("details", new { Id = current.Id });
         }
+        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FitnessCenterWepApp.Controllers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -12,12 +13,24 @@ namespace FitnessCenterWebApp.Models
     {
         public int Id { get; set; }
         public bool Multiclub { get; set; }
+        [Required]
+        [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
         public string Name { get; set; }
+        [Required]
         public Membership Membership { get; set; }
         public int Price { get; set; }
         public int Balance { get; set; }
         public DateTime Begin { get; set; }
-        public virtual void CheckIn(Club club) { }
+        public void CheckIn(Club club) 
+        {
+            if (this.Membership == Membership.MultiClub)
+            {
+                this.Points++;
+            }
+            HomeController.currentMember = this;
+            MemberList.GetBalance();
+        }
+        public int Points { get; set; }
 
         public Member()
         {
@@ -76,26 +89,6 @@ namespace FitnessCenterWebApp.Models
             }
             HomeController.currentMember.Name = name;
         }
-/*        public static void GetNewMemberType(Club club)
-        {
-            string memberType = Console.ReadLine();
-
-            if (memberType == "1")
-            {
-                SCMember newMember = new SCMember() { Membership = club.Membership };
-                HomeController.currentMember = newMember;
-            }
-            else if (memberType == "2")
-            {
-                MCMember newMember = new MCMember() { Membership = Membership.MultiClub };
-                HomeController.currentMember = newMember;
-            }
-            else
-            {
-                Console.WriteLine("That is not a valid answer, please try again.");
-                Console.ReadKey();
-                //AddMemberView.Display(club);
-            }
-        }*/
+        
     }
 }

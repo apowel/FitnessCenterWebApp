@@ -10,5 +10,6 @@ namespace FitnessCenterWebApp.Models
         public string Address { get; set; }
         public int Id { get; set; }
         public Membership Membership { get; set; }
+        public List<Member> members { get; set; }
     }
 }

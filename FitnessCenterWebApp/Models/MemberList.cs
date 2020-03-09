@@ -36,7 +36,7 @@ namespace FitnessCenterWebApp.Models
         }
         public static void GetBalance()
         {
-            int monthResult = (DateTime.Today.Month - HomeController.currentMember.Begin.Month) 
+            int monthResult = DateTime.Today.Month - HomeController.currentMember.Begin.Month 
                 + 12 * (DateTime.Today.Year - HomeController.currentMember.Begin.Year);
             HomeController.currentMember.Balance = monthResult * HomeController.currentMember.Price;
         }

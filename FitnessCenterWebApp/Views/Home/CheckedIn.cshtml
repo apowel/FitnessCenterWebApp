@@ -1,7 +1,7 @@
 ﻿@model FitnessCenterWebApp.Models.Member
 
 @{
-    ViewBag.Title = "Employee Details";
+    ViewBag.Title = "Checked In!";
 }
 <div class="row justify-content-center m-3">
     <div class="col-sm-8">
@@ -9,11 +9,8 @@
             <div class="card-header">
                 <h1>@Model.Name</h1>
             </div>
-
+            <h1 align="center">Check In Successful!</h1>
             <div class="card-body text-center">
-                <img class="card-img-top" src="~/images/noimage.jpg"
-                     asp-append-version="true" />
-
                 <h4>Member ID : @Model.Id</h4>
                 <h4>Membership Type : @Model.Membership</h4>
                 <h4>Oustanding Balance : @Model.Balance</h4>
@@ -21,12 +18,10 @@
 
             </div>
             <div class="card-footer text-center">
-                <a asp-controller="home" asp-action="memberlist"
+                <a asp-controller="home" asp-action="club" asp-route-id="@Model.Membership"
                    class="btn btn-primary">Back</a>
                 <a asp-controller="home" asp-action="paybill" asp-route-id="@Model.Id"
                    class="btn btn-primary">Settle Balance</a>
-                <a asp-controller="home" asp-action="Delete" asp-route-id="@Model.Id"
-                   class="btn btn-danger">Delete </a>
             </div>
         </div>
     </div>
